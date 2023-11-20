@@ -1,0 +1,6 @@
+{
+  "realm": "kneo",
+  "auth-server-url": "https://silverbox:8443/",
+  "resource": "keypractica_auth"
+}
+
