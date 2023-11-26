@@ -5,8 +5,3 @@ module.exports = defineConfig({
     public: 'www.keypractica.com'
   }
 })
-
-
-module.exports = {
-
-};
