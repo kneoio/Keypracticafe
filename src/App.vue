@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import MainWorkspace from "@/components/MainWorkspace.vue";
+import MainWorkspace from "@/views/MainWorkspace.vue";
 
 export default {
   name: 'App',
