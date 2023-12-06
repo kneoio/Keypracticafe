@@ -11,9 +11,17 @@
             <li class="nav-item"><a href="#" class="nav-link link-dark px-2">About</a></li>
           </ul>
           <ul class="nav">
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2" @click.prevent="login">Login</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Sign up</a></li>
+            <li class="nav-item">
+              <a href="#" class="nav-link link-dark px-2" v-if="user && user !== 'anonymous'"
+                 @click.prevent="userProfile">{{ user }}</a>
+              <a href="#" class="nav-link link-dark px-2" v-else @click.prevent="login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link link-dark px-2" v-if="user && user !== 'anonymous'" @click.prevent="logout">Logout</a>
+              <a href="#" class="nav-link link-dark px-2" v-else @click.prevent="signUp">Sign up</a>
+            </li>
           </ul>
+
         </div>
       </nav>
       <header class="py-3 mb-4 border-bottom">
@@ -29,6 +37,16 @@
           </form>
         </div>
       </header>
+      <footer>
+        <div class="position-fixed bottom-0 start-50 translate-middle-x mb-3 ms-3">
+          <select v-model="selectedLanguage" class="form-select">
+            <option v-for="(language, index) in languages" :key="index" :value="language">
+              {{ language }}
+            </option>
+          </select>
+        </div>
+      </footer>
+
     </div>
   </div>
 </template>
@@ -42,12 +60,18 @@ export default {
       workspaceData: null,
       error: null,
       loading: false,
+      user: null,
+      languages: [],
+      selectedLanguage: "English"
     }
   },
   created() {
     apiClient.get('/workspace')
         .then(response => {
           this.workspaceData = response.data;
+          this.user = response.data.payload.user;
+          this.languages = response.data.payload.available_languages.entries.map(entry => entry.localizedNames.ENG);
+
         })
         .catch(error => {
           console.log(error);
@@ -63,6 +87,15 @@ export default {
     },
     login() {
       this.$keycloak.login()
+    },
+    signUp() {
+      this.$keycloak.signUp()
+    },
+    logout() {
+      this.$keycloak.logout()
+    },
+    userProfile() {
+      this.$keycloak.accountManagement()
     }
   }
 }
