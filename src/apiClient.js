@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const apiClient = axios.create();
+const apiClient = axios.create({
+    baseURL: process.env.NODE_ENV === 'production'
+        ? 'https://api.keypractica.com'
+        : 'http://localhost:38707'
+});
 
 apiClient.interceptors.request.use((config) => {
     const token = localStorage.getItem('jwt');

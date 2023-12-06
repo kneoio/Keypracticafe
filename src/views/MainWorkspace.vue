@@ -45,7 +45,7 @@ export default {
     }
   },
   created() {
-    apiClient.get('http://localhost:38707/workspace')
+    apiClient.get('/workspace')
         .then(response => {
           this.workspaceData = response.data;
         })
