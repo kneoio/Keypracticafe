@@ -1,6 +1,4 @@
 <template>
-  <div v-if="loading" class="loading">Loading...</div>
-  <div v-if="error" class="error">{{ error }}</div>
   <div v-if="workspaceData">
     <div class="hello">
       <nav class="py-2 bg-light border-bottom">
@@ -30,13 +28,14 @@
             <svg class="bi me-2" width="40" height="32">
               <use xlink:href="#bootstrap"/>
             </svg>
-            <span class="fs-4">... to dare code effectively</span>
+            <span class="fs-4">... to dare code effective</span>
           </a>
           <form class="col-12 col-lg-auto mb-3 mb-lg-0">
             <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
           </form>
         </div>
       </header>
+      <CardContainer />
       <footer>
         <div class="position-fixed bottom-0 start-50 translate-middle-x mb-3 ms-3">
           <select v-model="selectedLanguage" class="form-select">
@@ -53,8 +52,10 @@
 
 <script>
 import apiClient from "@/apiClient";
+import CardContainer from "@/components/CardContainer.vue";
 
 export default {
+  components: {CardContainer},
   data() {
     return {
       workspaceData: null,
