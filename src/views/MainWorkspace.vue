@@ -69,13 +69,14 @@ export default {
   created() {
     apiClient.get('/workspace')
         .then(response => {
+          console.log('423434');
           this.workspaceData = response.data;
           this.user = response.data.payload.user;
           this.languages = response.data.payload.available_languages.entries.map(entry => entry.localizedNames.ENG);
 
         })
         .catch(error => {
-          console.log(error);
+          console.log(error + 'dddd');
         });
   },
   methods: {
