@@ -35,17 +35,8 @@
           </form>
         </div>
       </header>
-      <CardContainer />
-      <footer>
-        <div class="position-fixed bottom-0 start-50 translate-middle-x mb-3 ms-3">
-          <select v-model="selectedLanguage" class="form-select">
-            <option v-for="(language, index) in languages" :key="index" :value="language">
-              {{ language }}
-            </option>
-          </select>
-        </div>
-      </footer>
-
+      <CardContainer :modules="modules"/>
+      <AppFooter :languages="languages" :selectedLanguage="selectedLanguage" />
     </div>
   </div>
 </template>
@@ -53,30 +44,36 @@
 <script>
 import apiClient from "@/apiClient";
 import CardContainer from "@/components/CardContainer.vue";
+import AppFooter from "@/components/AppFooter.vue";
+import { useLanguageStore } from '@/stores/languageStore';
 
 export default {
-  components: {CardContainer},
+  components: {
+    CardContainer,
+    AppFooter
+  },
   data() {
     return {
       workspaceData: null,
       error: null,
       loading: false,
-      user: null,
-      languages: [],
-      selectedLanguage: "English"
+      user: 'anonymous',
+      modules: []
     }
   },
   created() {
+    const languageStore = useLanguageStore();
+
     apiClient.get('/workspace')
         .then(response => {
-          console.log('423434');
           this.workspaceData = response.data;
-          this.user = response.data.payload.user;
-          this.languages = response.data.payload.available_languages.entries.map(entry => entry.localizedNames.ENG);
-
+          this.user = this.$keycloak.authenticated ? response.data.payload.user : 'anonymous';
+          languageStore.setLanguages(response.data.payload.available_languages.entries.map(entry => entry.localizedNames.ENG));
+          this.modules = response.data.payload.available_modules.entries;
         })
         .catch(error => {
-          console.log(error + 'dddd');
+          console.log(error);
+          this.user = 'anonymous';
         });
   },
   methods: {
@@ -94,7 +91,12 @@ export default {
       this.$keycloak.signUp()
     },
     logout() {
-      this.$keycloak.logout()
+      localStorage.removeItem('jwt');
+      this.$keycloak.logout().then(() => {
+        this.user = 'anonymous';
+      }).catch(error => {
+        console.error("Logout failed:", error);
+      });
     },
     userProfile() {
       this.$keycloak.accountManagement()

@@ -4,6 +4,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Keycloak from 'keycloak-js';
 import router from './router';
+import {createPinia} from "pinia";
 
 function initializeKeycloak(config) {
     let keycloak = new Keycloak({
@@ -25,8 +26,10 @@ function initializeKeycloak(config) {
         }
 
         const app = createApp(App);
+        const state = createPinia();
         app.config.globalProperties.$keycloak = keycloak;
         app.use(router);
+        app.use(state);
         app.mount('#app');
     }).catch(() => {
         console.log("Could not authenticate");

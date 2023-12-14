@@ -1,8 +1,13 @@
 <template>
-  <div class="container">
-    <ModuleCard header="Absolute" title="Projects" text="Application module to manage projects and tasks." />
-    <ModuleCard header="Absolute" title="Dictionaries" text="Utility module to handle all dictionaries and classifiers." />
-    <ModuleCard header="Absolute" title="Administrator" text="Administrative module to manage users and parameters of teh system." />
+  <div class="grid-container">
+    <ModuleCard
+        v-for="(module, index) in modules"
+        :key="index"
+        :header="module.identifier"
+        :title="module.localizedName.ENG"
+        :text="module.localizedDescription.ENG"
+        :url="`/module/${module.identifier}`"
+    />
   </div>
 </template>
 
@@ -13,6 +18,39 @@ export default {
   name: 'CardContainer',
   components: {
     ModuleCard: ModuleCard
+  },
+  props: {
+    modules: Array
   }
 }
 </script>
+
+<style scoped>
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+  margin: 1rem;
+  align-content: start;
+}
+
+@media (min-width: 600px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+</style>
+
+

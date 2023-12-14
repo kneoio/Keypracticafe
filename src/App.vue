@@ -1,16 +1,13 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <MainWorkspace/>
+  <div id="app">
+    <img v-if="$route.path === '/'" alt="Vue logo" src="./assets/logo.png">
+    <router-view/>
+  </div>
 </template>
 
 <script>
-import MainWorkspace from "@/views/MainWorkspace.vue";
-
 export default {
   name: 'App',
-  components: {
-    MainWorkspace
-  }
 }
 </script>
 
