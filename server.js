@@ -11,7 +11,8 @@ app.get('/config', (req, res) => {
     const config = {
         "realm": process.env.KEYPRACTICA_REALM,
         "auth-server-url": process.env.KEYPRACTICA_AUTH_SERVER_URL,
-        "resource": process.env.KEYPRACTICA_RESOURCE
+        "resource": process.env.KEYPRACTICA_RESOURCE,
+        "client-realm": "semantyca.com"
     };
     res.json(config);
 });

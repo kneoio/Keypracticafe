@@ -1,4 +1,7 @@
 <template>
+  <div v-if="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
   <div v-if="workspaceData">
     <div class="hello">
       <nav class="py-2 bg-light border-bottom">
@@ -56,6 +59,7 @@ export default {
     return {
       workspaceData: null,
       error: null,
+      errorMessage: null,
       loading: false,
       user: 'anonymous',
       modules: []
@@ -72,7 +76,16 @@ export default {
           this.modules = response.data.payload.available_modules.entries;
         })
         .catch(error => {
-          console.log(error);
+          console.log("API error", error);
+          let errorMessage;
+          if (error.response) {
+            errorMessage = error.response.data.message || `Error: ${error.response.status}`;
+          } else if (error.request) {
+            errorMessage = "No response was received from the API server.";
+          } else {
+            errorMessage = error.message;
+          }
+          this.errorMessage = errorMessage;
           this.user = 'anonymous';
         });
   },

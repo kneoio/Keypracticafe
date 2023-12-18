@@ -32,7 +32,10 @@ function initializeKeycloak(config) {
         app.use(state);
         app.mount('#app');
     }).catch(() => {
-        console.log("Could not authenticate");
+        console.log("OIDC error");
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'An error occurred. Please try again later.';
+        errorMessageDiv.style.display = 'block';
     });
 }
 
