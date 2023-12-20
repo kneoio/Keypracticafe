@@ -62,7 +62,9 @@ export default {
       errorMessage: null,
       loading: false,
       user: 'anonymous',
-      modules: []
+      modules: [],
+      languages: [],
+      selectedLanguage: null
     }
   },
   created() {
@@ -74,6 +76,7 @@ export default {
           this.user = this.$keycloak.authenticated ? response.data.payload.user : 'anonymous';
           languageStore.setLanguages(response.data.payload.available_languages.entries.map(entry => entry.localizedNames.ENG));
           this.modules = response.data.payload.available_modules.entries;
+          this.languages = response.data.payload.available_languages.entries.map(entry => entry.localizedNames.ENG);
         })
         .catch(error => {
           console.log("API error", error);

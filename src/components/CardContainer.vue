@@ -1,6 +1,6 @@
 <template>
   <div class="grid-container">
-    <ModuleCard
+    <ModuleCard class="module-card"
         v-for="(module, index) in modules"
         :key="index"
         :header="module.identifier"
@@ -32,6 +32,16 @@ export default {
   grid-gap: 1rem;
   margin: 1rem;
   align-content: start;
+}
+
+.module-card {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+
+.module-card:hover {
+  background-color: #f0f0f0;
 }
 
 @media (min-width: 600px) {
