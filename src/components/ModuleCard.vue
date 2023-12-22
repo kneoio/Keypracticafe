@@ -24,11 +24,10 @@ export default {
 
 <style scoped>
 .module-card {
-  transition: transform 0.3s, background-color 0.3s;
+ transition: transform 0.3s, background-color 0.3s;
 }
 
 .module-card:hover {
-  transform: scale(1.05);
-  background-color: rgba(238, 236, 232, 0.22);
+  background-color: rgb(210, 234, 245);
 }
 </style>

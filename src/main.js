@@ -5,8 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Keycloak from 'keycloak-js';
 import router from './router';
 import {createPinia} from "pinia";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faUser, faSignOutAlt, faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 function initializeKeycloak(config) {
+    //only for testing
+    localStorage.removeItem('jwt');
     let keycloak = new Keycloak({
         url: config['auth-server-url'],
         realm: config.realm,
@@ -25,8 +30,11 @@ function initializeKeycloak(config) {
             localStorage.setItem('jwt', keycloak.token);
         }
 
+        library.add(faUser, faSignOutAlt, faBriefcase);
+
         const app = createApp(App);
         const state = createPinia();
+        app.component('font-awesome-icon', FontAwesomeIcon);
         app.config.globalProperties.$keycloak = keycloak;
         app.use(router);
         app.use(state);

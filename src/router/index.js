@@ -24,6 +24,10 @@ const routes = [
     {
         path: "/module/:id",
         component: ModuleDetailView
+    },
+    {
+        path: "/projects/:id",
+        component: ModuleDetailView
     }
 ]
 
