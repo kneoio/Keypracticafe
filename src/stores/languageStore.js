@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 
 export const useLanguageStore = defineStore('languageStore', {
     state: () => ({
-        languages: [], // Your languages array
-        selectedLanguage: 'English', // Default selected language
+        languages: [],
+        selectedLanguage: 'English',
     }),
     actions: {
         setLanguages(languages) {

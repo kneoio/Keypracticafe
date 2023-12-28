@@ -107,11 +107,13 @@ export default {
       this.$keycloak.signUp()
     },
     logout() {
+      alert("Logout started");
       localStorage.removeItem('jwt');
       this.$keycloak.logout().then(() => {
         this.user = 'anonymous';
+        alert("Logout success:", this.user);
       }).catch(error => {
-        console.error("Logout failed:", error);
+        alert("Logout failed:", error);
       });
     },
     userProfile() {
