@@ -27,7 +27,7 @@
 
 
       <div class="flex-grow-1 overflow-auto p-3">
-        <document-table-component :documents="documents"/>
+        <component :is="currentFormComponent" :project-id="projectId" />
       </div>
     </div>
     <app-footer/>
@@ -36,12 +36,13 @@
 
 
 <script>
-import DocumentTableComponent from '@/components/DocumentTable.vue';
 import AppFooter from '@/components/AppFooter.vue';
+import ProjectForm from "@/components/ProjectForm.vue";
+import TaskForm from "@/components/TaskForm.vue";
 
 export default {
   components: {
-    DocumentTableComponent,
+    ProjectForm,
     AppFooter
   }, data() {
     return {
@@ -49,14 +50,18 @@ export default {
       user: 'anonymous'
     }
   },
-  methods: {
-    logout() {
-      localStorage.removeItem('jwt');
-      this.$keycloak.logout().then(() => {
-        this.user = 'anonymous';
-      }).catch(error => {
-        console.error("Logout failed:", error);
-      });
+  computed: {
+    projectId() {
+      return this.$route.params.id;
+    },
+    currentFormComponent() {
+      const routeType = this.$route.meta.type;
+      if (routeType === 'project') {
+        return ProjectForm;
+      } else {
+        return TaskForm;
+      }
+
     }
   }
 }

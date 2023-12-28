@@ -28,7 +28,8 @@ const routes = [
     },
     {
         path: "/projects/:id",
-        component: DocumentContainer
+        component: DocumentContainer,
+        meta: { type: 'project' }
     }
 ]
 

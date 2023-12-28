@@ -57,6 +57,7 @@ import {useLanguageStore} from '@/stores/languageStore';
 import {computed, onMounted, ref} from 'vue';
 import apiClient from "@/apiClient";
 import {useRouter} from "vue-router";
+import {handleError} from "@/utils/api";
 
 export default {
   name: 'DocumentTable',
@@ -66,7 +67,6 @@ export default {
   setup() {
     const router = useRouter();
     const documents = ref([]);
-    const errorMessage = ref('');
     const selectedDocuments = ref([]);
     const allSelected = computed({
       get: () => selectedDocuments.value.length === documents.value.length,
@@ -96,17 +96,6 @@ export default {
 
     const navigateToDocument = (id) => {
       router.push(`/projects/${id}`);
-    };
-    const handleError = (error) => {
-      let message;
-      if (error.response) {
-        message = error.response.data.message || `Error: ${error.response.status}`;
-      } else if (error.request) {
-        message = "No response was received from the API server.";
-      } else {
-        message = error.message;
-      }
-      errorMessage.value = message;
     };
 
     const fetchDocuments = () => {
