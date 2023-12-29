@@ -40,7 +40,7 @@
       </div>
 
       <div class="flex-grow-1 overflow-auto p-3">
-        <document-table-component :documents="documents"/>
+        <document-table-component/>
       </div>
     </div>
     <app-footer/>

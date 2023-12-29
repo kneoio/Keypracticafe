@@ -12,19 +12,31 @@
 
 <script>
 import { useLanguageStore } from '@/stores/languageStore';
+import {onMounted, ref} from "vue";
 export default {
   name: 'AppFooter',
   setup() {
-    const languageStore = useLanguageStore(); // Use the store
+    const languageStore = useLanguageStore();
+    const selectedLanguage = ref(localStorage.getItem('selectedLanguage') || languageStore.selectedLanguage);
+
+    const updateLanguage = (newValue) => {
+      selectedLanguage.value = newValue;
+      localStorage.setItem('selectedLanguage', newValue);
+    };
+
+    onMounted(() => {
+      const storedLanguage = localStorage.getItem('selectedLanguage');
+      if(storedLanguage) {
+        selectedLanguage.value = storedLanguage;
+      }
+    });
+
     return {
       languages: languageStore.languages,
-      selectedLanguage: languageStore.selectedLanguage
-    }
-  },
-  methods: {
-    updateLanguage(newValue) {
-      this.$emit('update:selectedLanguage', newValue);
-    }
+      selectedLanguage,
+      updateLanguage
+    };
+
   }
 }
 </script>
