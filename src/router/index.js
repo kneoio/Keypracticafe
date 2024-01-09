@@ -4,6 +4,7 @@ import AboutPage from '../views/AboutPage.vue'
 import ModuleDetailView from '../views/ModuleDetailView.vue'
 import DocumentContainer from '../views/DocumentContainer.vue'
 import ViewOutline from "@/views/ViewOutline.vue";
+import PrivacyPolicy from "@/views/PrivacyPolicy.vue";
 
 const routes = [
     {
@@ -29,7 +30,12 @@ const routes = [
     {
         path: "/projects/:id",
         component: DocumentContainer,
-        meta: { type: 'project' }
+        meta: {type: 'project'}
+    },
+    {
+        path: "/policy",
+        component: PrivacyPolicy
+
     }
 ]
 
