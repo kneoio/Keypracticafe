@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-4">
+  <div class="container my-4 mb-4 text-left">
     <h1 class="text-center mb-4">Privacy Policy</h1>
 
     <section id="introduction">
@@ -32,7 +32,7 @@
 
     <section id="consent">
       <h2>5. Consent</h2>
-      <p>By participating in kneo.io's projects and using its task management systems, team members consent to the sharing of their work-related actions with colleagues as outlined in this policy. Team members have the right to withdraw consent for specific types of information sharing, where applicable, by contacting [Designated Privacy Officer].</p>
+      <p>By participating in kneo.io's projects and using its task management systems, team members consent to the sharing of their work-related actions with colleagues as outlined in this policy. Team members have the right to withdraw consent for specific types of information sharing, where applicable, by contacting <a href="mailto:justaidajam@gmail.com">justaidajam@gmail.com</a>.</p>
     </section>
 
     <section id="data-protection">
@@ -47,7 +47,7 @@
 
     <section id="contact-info">
       <h2>8. Contact Information</h2>
-      <p>For any questions or concerns regarding this policy, please contact [Designated Privacy Officer] at [Contact Information].</p>
+      <p>For any questions or concerns regarding this policy, please contact via <a href="mailto:justaidajam@gmail.com">justaidajam@gmail.com</a>.</p>
     </section>
   </div>
 </template>
@@ -59,5 +59,7 @@ export default {
 </script>
 
 <style>
-/* You can add additional custom styles here if needed */
+.container {
+  text-align: left;
+}
 </style>
